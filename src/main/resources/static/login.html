@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="author" content="Michal Sosnicki">
+
+    <title>Wyrzutnik</title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+
+    <link href="css/login.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Wyrzutnik</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+            </ul>
+            <ul id="navbar-logout" class="nav navbar-nav navbar-right">
+                <p class="nav navbar-text">
+                    <span id="username-prefix">You are logged in as </span>
+                    <span id="navbar-logout-username"></span>
+                </p>
+                <li>
+                    <a id="navbar-logout-button" href>Log out</a>
+                </li>
+            </ul>
+            <ul id="navbar-login" class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <a href="/login.html">Sign in</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container-fluid">
+    <div id="form-signin" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="signin-username" class="sr-only">Username</label>
+        <input type="text" id="signin-username" class="form-control" autofocus>
+        <label for="signin-password" class="sr-only">Password</label>
+        <input type="password" id="signin-password" class="form-control">
+        <button id="signin-signin" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        <button id="signin-register" class="btn btn-lg btn-success btn-block">Register</button>
+    </div>
+    <div id="form-signout" class="form-signin">
+        <h2>You are logged in as <span id="form-signin-username"></span>.</h2>
+        <button id="signout-logout" class="btn btn-lg btn-warning btn-block">Log out</button>
+    </div>
+</main>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/ajax-utils.js"></script>
+<script src="js/jwt-utils.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

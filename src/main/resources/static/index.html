@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="author" content="Michal Sosnicki">
+
+    <title>Wyrzutnik</title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <link href="css/index.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Wyrzutnik</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+            </ul>
+            <ul id="navbar-logout" class="nav navbar-nav navbar-right">
+                <p class="nav navbar-text">
+                    <span id="username-prefix">You are logged in as </span>
+                    <span id="navbar-logout-username"></span>
+                </p>
+                <li>
+                    <a id="navbar-logout-button" href>Log out</a>
+                </li>
+            </ul>
+            <ul id="navbar-login" class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/login.html">Sign in</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+            <article id="map-editor-panel" class="panel panel-default">
+                <div class="panel-heading panel-title">
+                    Map editor
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="edition-select">Type:</label>
+                        <select id="edition-select" class="form-control"></select>
+                    </div>
+                    <div id="dumpster-form">
+                        <div class="checkbox">
+                            <label for="dumpster-intelligent">
+                                <input type="checkbox" id="dumpster-intelligent"> Intelligent
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="dumpster-capacity">Capacity:</label>
+                            <input type="number" id="dumpster-capacity" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="dumpster-used">Used:</label>
+                            <input type="number" id="dumpster-used" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="dumpster-collection-period-in-days">Collection period (Days):</label>
+                            <input type="number" id="dumpster-collection-period-in-days" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="dumpster-last-collected">Last collected:</label>
+                            <input type="date" id="dumpster-last-collected" class="form-control">
+                        </div>
+                    </div>
+                    <div id="route-form">
+                        <div class="form-group">
+                            <label for="route-length-in-meters">Length (meters):</label>
+                            <input type="number" id="route-length-in-meters" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="route-travel-time-in-seconds">Travel time (seconds):</label>
+                            <input type="number" id="route-travel-time-in-seconds" class="form-control">
+                        </div>
+                    </div>
+                    <div id="weather-form">
+                        <div class="form-group">
+                            <label for="weather-comment">Comment:</label>
+                            <textarea id="weather-comment" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-justified">
+                        <div class="btn-group">
+                            <button id="creation-start" class="btn btn-primary">Create</button>
+                        </div>
+                        <div class="btn-group">
+                        <button id="update-start" class="btn btn-info">Update</button>
+                        </div>
+                        <div class="btn-group">
+                        <button id="delete-start" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-justified">
+                        <div class="btn-group">
+                            <button id="cancel" class="btn btn-warning">Cancel</button>
+                        </div>
+                        <div class="btn-group">
+                            <button id="finish" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article id="optimal-route-panel" class="panel panel-default">
+                <div class="panel-heading panel-title">
+                    Optimal route finder
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified">
+                        <div class="btn-group">
+                            <button id="route-finder-start" class="btn btn-primary">Set position</button>
+                        </div>
+                        <div class="btn-group">
+                            <button id="route-finder-cancel" class="btn btn-warning">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article id="login-message-panel" class="panel panel-default">
+                <div class="panel-heading panel-title">
+                    Message
+                </div>
+                <div class="panel-body">
+                    Sign in to perform operations.
+                </div>
+            </article>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-9">
+            <div id="map"></div>
+        </div>
+    </div>
+</main>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={key}" async defer></script>
+<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+<script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js'></script>
+<script src="js/ajax-utils.js"></script>
+<script src="js/jwt-utils.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
